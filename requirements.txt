@@ -1,0 +1,5 @@
+botbuilder-integration-aiohttp
+aiohttp
+botbuilder-schema
+botbuilder-core
+botbuilder
