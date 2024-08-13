@@ -13,9 +13,9 @@ class EchoBot(ActivityHandler):
         self.scope = ["https://graph.microsoft.com/.default"]
 
         # Initialize attributes to None
-        self.name = None
-        self.email = None
-        self.office = None
+        self.name1 = None
+        self.email2 = None
+        self.office3 = None
 
     async def msal_app(self, turn_context: TurnContext):
         msal_app = ConfidentialClientApplication(
@@ -54,7 +54,9 @@ class EchoBot(ActivityHandler):
         self.email2 = user_info["value"][0]["mail"]
         self.office3 = user_info["value"][0]["officeLocation"]
 
-        await turn_context.send_activity(f"User Info: Name: {self.name}, Office: {self.office}, Email: {self.email}")
+        await turn_context.send_activity(f"User Info: Name: {self.name1}, Office: {self.office3}, Email: {self.email2}")
+
+        print(self.name1, self.email2, self.office3)
 
     async def on_members_added_activity(
         self, members_added: [ChannelAccount], turn_context: TurnContext
@@ -62,7 +64,9 @@ class EchoBot(ActivityHandler):
         
         for member in members_added:
             #// Sends a message activity to the sender of the incoming activity.
-            await turn_context.send_activity(f"Welcome your new team member {member.id}")
+            await turn_context.send_activity(f"Welcome your new team member {member.id}, {member.name}, {member.role}, {self.name1, self.email2, self.office3}")
+            print(self.name1, self.email2, self.office3)
+
         
         #return
 
