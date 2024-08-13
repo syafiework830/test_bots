@@ -7,7 +7,7 @@ import requests
 class EchoBot(ActivityHandler):
     def __init__(self):
         self.client_id = "41a60c14-5134-47f8-9445-359395b74928"
-        self.client_secret = "Vni8Q~~bqEijtbvTYBJNsM9WJu3vhfxYCKR37a-t"
+        self.client_secret = "3cK8Q~Dh2l6xni8R2cucTOqKrIOOTnWSdJ6RMcqw"
         TENANT_ID = "528fea52-fb81-42c1-bdeb-42c0076f8106"
         self.authority = f'https://login.microsoftonline.com/{TENANT_ID}'
         self.scope = ["https://graph.microsoft.com/.default"]
