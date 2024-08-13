@@ -6,9 +6,9 @@ import requests
 
 class EchoBot(ActivityHandler):
     def __init__(self):
-        self.client_id = "4de31d44-c36c-4c94-9357-56c12acc1810"
+        self.client_id = "41a60c14-5134-47f8-9445-359395b74928"
         self.client_secret = "Vni8Q~~bqEijtbvTYBJNsM9WJu3vhfxYCKR37a-t"
-        TENANT_ID = "155fd083-bd9d-49e1-8d00-2cc96af8a37b"
+        TENANT_ID = "528fea52-fb81-42c1-bdeb-42c0076f8106"
         self.authority = f'https://login.microsoftonline.com/{TENANT_ID}'
         self.scope = ["https://graph.microsoft.com/.default"]
 
@@ -45,34 +45,27 @@ class EchoBot(ActivityHandler):
         }
 
         response = requests.get(
-            url="https://graph.microsoft.com/v1.0/users",
+            url="https://graph.microsoft.com/v1.0/me",
             headers=headers
         )
 
         user_info = response.json()
-        self.name = user_info["value"][0]["givenName"]
-        self.email = user_info["value"][0]["mail"]
-        self.office = user_info["value"][0]["officeLocation"]
+        self.name1 = user_info["value"][0]["givenName"]
+        self.email2 = user_info["value"][0]["mail"]
+        self.office3 = user_info["value"][0]["officeLocation"]
 
         await turn_context.send_activity(f"User Info: Name: {self.name}, Office: {self.office}, Email: {self.email}")
 
     async def on_members_added_activity(
         self, members_added: [ChannelAccount], turn_context: TurnContext
     ):
+        
         for member in members_added:
-            if member.id != turn_context.activity.recipient.id:
-                await turn_context.send_activity("Hello and welcome!")
+            #// Sends a message activity to the sender of the incoming activity.
+            await turn_context.send_activity(f"Welcome your new team member {member.id}")
+        
+        #return
 
-    async def on_message_activity(self, turn_context: TurnContext):
-        user_name = turn_context.activity.from_property.name
-        await turn_context.send_activity(f"Welcome - {user_name}")
-
-        # Call _show_member_details and await its completion
-        await self._show_member_details(turn_context)
-
-        return await turn_context.send_activity(
-            MessageFactory.text(f"The Bot: {turn_context.activity.text}")
-        )
 
     async def _show_member_details(self, turn_context: TurnContext):
         try:
@@ -105,3 +98,11 @@ class EchoBot(ActivityHandler):
         except Exception as e:
             await turn_context.send_activity(f"Error retrieving team members: {str(e)}")
             print(f"Error retrieving team members: {str(e)}")
+
+    async def on_message_activity(self, turn_context: TurnContext):
+        # Call _show_member_details and await its completion
+        await self._show_member_details(turn_context)
+        
+        return await turn_context.send_activity(
+            MessageFactory.text(f"The Bot: {turn_context.activity.text}")
+        )
