@@ -1,11 +1,8 @@
-from botbuilder.core import ActivityHandler, TurnContext
-from botbuilder.core.teams import TeamsInfo
+from botbuilder.core import ActivityHandler, MessageFactory, TurnContext
 from botbuilder.schema import ChannelAccount
-from botbuilder.schema.teams import TeamsChannelAccount
-from typing import List
+
 
 class EchoBot(ActivityHandler):
-   class EchoBot(ActivityHandler):
     async def on_members_added_activity(
         self, members_added: [ChannelAccount], turn_context: TurnContext
     ):
